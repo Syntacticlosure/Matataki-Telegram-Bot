@@ -2,6 +2,26 @@ import { AssociatedInfo } from "#/definitions";
 import { IMatatakiService } from "#/services";
 
 export class MatatakiServiceStub implements IMatatakiService {
+    getAllMinetokens(): Promise<import("../../../src/definitions").MinetokenInfo[]> {
+        return Promise.resolve([])
+    }
+    getUserMinetoken(userId: number, symbol: string): Promise<number> {
+        if (userId === 114514 && symbol === 'INM') {
+            return Promise.resolve(1145141919810);
+        }
+        return Promise.reject(new Error("Associated Matataki account not found"));
+    }
+    transfer(from: number, to: number, symbol: string, amount: number): Promise<void> {
+        if (from === 114514 && to === 1919 && symbol === 'INM' && amount === 1145141919810) {
+            return Promise.resolve();
+        }
+
+        return Promise.reject(new Error("Transfer failed"));
+    }
+    getPrice(symbol: string): Promise<number> {
+        if (symbol === 'INM') return Promise.resolve(1145141919810);
+        else return Promise.reject(new Error("Token not found"));
+    }
     get urlPrefix() {
         return "http://MATATAKI";
     }
@@ -53,6 +73,22 @@ export class MatatakiServiceStub implements IMatatakiService {
 }
 
 export class MatatakiServiceNotAuthorizedStub implements IMatatakiService {
+    getAllMinetokens(): Promise<import("../../../src/definitions").MinetokenInfo[]> {
+        return Promise.resolve([])
+    }
+    getUserMinetoken(userId: number, symbol: string): Promise<number> {
+        if (userId === 114514 && symbol === 'INM') {
+            return Promise.resolve(1145141919810);
+        }
+        return Promise.reject(new Error("Associated Matataki account not found"));
+    }
+    transfer(from: number, to: number, symbol: string, amount: number): Promise<void> {
+        return Promise.reject(new Error("Invalid Access Token"));
+    }
+    getPrice(symbol: string): Promise<number> {
+        if (symbol === 'INM') return Promise.resolve(1145141919810);
+        else return Promise.reject(new Error("Token not found"));
+    }
     get urlPrefix() {
         return "http://MATATAKI";
     }

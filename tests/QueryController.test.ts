@@ -8,7 +8,7 @@ import { GroupRepositoryStub } from "./stubs/repositories/GroupRepositoryStub";
 const matatakiService = new MatatakiServiceStub();
 
 function createController() {
-    return new QueryController(matatakiService, new UserRepositoryStub(), new GroupRepositoryStub(), null!);
+    return new QueryController(matatakiService, new UserRepositoryStub(), new GroupRepositoryStub(), null!, null!);
 }
 
 describe("QueryController", () => {
@@ -39,7 +39,7 @@ describe("QueryController", () => {
             } as Message;
 
             const controller = createController();
-            await controller.queryStat(ctx);
+            await controller.queryStatus(ctx);
 
             expect(ctx.replyWithMarkdown).toBeCalledTimes(1);
             expect(ctx.replyWithMarkdown).toBeCalledWith(`瞬Matataki 昵称：[野獣先輩](http://MATATAKI/user/810)
